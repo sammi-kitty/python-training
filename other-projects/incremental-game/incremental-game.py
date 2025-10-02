@@ -1,28 +1,11 @@
 #!/usr/bin/python3
-from time import sleep
-from dataclasses import dataclass
-
-@dataclass
-class Machine:
-    name: str
-    description: str
-    production: float
-    price: float
-
-@dataclass
-class Upgrade:
-    name: str
-    description: str
-    factor: float
-    price: float
-
-@dataclass
-class Statistics:
-    money: float
-    production: float
-    factor: float
-    owned_machines: list[Machine]
-    owned_upgrades: list[Upgrade]
+from modules.classes import Machine
+from modules.classes import Statistics
+from modules.classes import Upgrade
+from modules import buy
+from modules import check
+from modules import click
+from modules import sell
 
 available_machines = {
     "basic": Machine("Basic Producer", "\"A basic producer for all your basic producing needs\"", 1, 50),
@@ -48,24 +31,16 @@ def main():
         cmd = input("What do you wish to do? \n")
 
         if (cmd == "check"):
-            check(money, factor, owned_machines)
+            check.check(company)
 
         elif (cmd == "buy"):
-            response = buy(money, factor, owned_machines)
-
-            money = response.money
-            factor = response.factor
-            owned_machines = response.owned_machines
+            company = buy.buy(company)
 
         elif (cmd == "sell"):
-            response = sell(money, factor, owned_machines)
-
-            money = response.money
-            factor = response.factor
-            owned_machines = response.owned_machines
+            company = sell.sell(company)
 
         elif (cmd == "click"):
-            money = click(money)
+            money = click.click(company)
 
         elif (cmd == "help"):
             print("Commands:\n" \
@@ -77,19 +52,5 @@ def main():
 
         else:
             print("Not valid command, please enter again")
-
-def check(company: Statistics):
-    print(money)
-
-def buy(company: Statistics):
-    print("These are the machines you own:\n")
-    print(owned_machines)
-
-def sell(company: Statistics):
-    print("These are the machines you own:\n")
-    print(owned_machines)
-
-def click(company: Statistics):
-    return (money + 10)
 
 main()
