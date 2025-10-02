@@ -1,7 +1,9 @@
 #!/usr/bin/python3
+import datetime as dt
+
 from modules.classes import Machine
-from modules.classes import Statistics
 from modules.classes import Upgrade
+from modules.classes import Statistics
 from modules import buy
 from modules import check
 from modules import click
@@ -14,7 +16,7 @@ available_machines = {
 }
 
 available_upgrades = {
-    "basic": Upgrade("Basic Upgrade", "\"A basic upgrade\"", 1.1, 200)
+    "basic": Upgrade("Basic Upgrade", "\"A basic upgrade\"", 0.1, 200, 1)
 }
 
 def main():
@@ -23,8 +25,9 @@ def main():
         money = 10,
         production = 0,
         factor = 1,
-        owned_machines = [available_machines["basic"]],
-        owned_upgrades = [available_upgrades["basic"]])
+        last_check = dt.datetime.now(),
+        owned_machines = [],
+        owned_upgrades = [])
 
     # Main game "loop":
     while True:
@@ -40,7 +43,7 @@ def main():
             company = sell.sell(company)
 
         elif (cmd == "click"):
-            money = click.click(company)
+            company = click.click(company)
 
         elif (cmd == "help"):
             print("Commands:\n" \
@@ -51,6 +54,6 @@ def main():
             "help - display this list\n")
 
         else:
-            print("Not valid command, please enter again")
+            print("Not valid command, please enter again (enter \"help\" for help)")
 
 main()

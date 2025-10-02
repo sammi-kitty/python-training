@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-import classes
+from .classes import Statistics
 
-def buy(company: classes.Statistics):
+def buy(company: Statistics):
     
+
     return company
