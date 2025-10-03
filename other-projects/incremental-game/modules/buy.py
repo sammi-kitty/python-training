@@ -21,7 +21,8 @@ def buy(company: Statistics):
         answer = input("What do you want to buy? \n")
 
         if (answer in ["machines", "upgrades"]):
-            print("You are now buying: " + answer)
+            print("You are now buying: " + answer.capitalize())
+            type_of_purchase = answer
         else:
             print("That is not a valid type of thing to buy. The valid types are: machines, upgrades")
 
@@ -30,7 +31,6 @@ def buy(company: Statistics):
     else:
         stock = AVAILABLE_UPGRADES.copy()
     
-    print("You are now buying: " + answer.capitalize())
     print("Available products:")
     for element in stock.values():
         print(
@@ -49,12 +49,10 @@ def buy(company: Statistics):
         else:
             print("Not a valid stock.")
 
+        print("except in affords function")
     for element in stock.values():
         if (element.name.lower() == answer.lower()):
             item_to_buy = element
-
-    print("money" + str(company.money))
-    print("item_to_buy" + str(item_to_buy))
 
     amount_to_buy = ""
     while (is_integer(amount_to_buy) == False 
@@ -73,8 +71,16 @@ def buy(company: Statistics):
         if (affords(amount_to_buy, item_to_buy, company.money) == False):
             print("You do not afford that purchase. To exit this purchase, enter \"exit\".")
 
-    company.production = company.production + item_to_buy.production * amount_to_buy
-    company.money = company.money - item_to_buy.price * amount_to_buy
+    company.production = company.production + item_to_buy.production * float(amount_to_buy)
+    company.money = company.money - item_to_buy.price * float(amount_to_buy)
+
+    if (type_of_purchase == "machines"):
+        for i in range(int(amount_to_buy)):
+            company.owned_machines.append(item_to_buy)
+
+    if (type_of_purchase == "upgrades"):
+        for i in range(int(amount_to_buy)):
+            company.owned_upgrades.append(item_to_buy)
 
     return company
 
@@ -94,7 +100,7 @@ def contains(set: dict[str, Machine] | dict[str, Upgrade], thing):
 
 def affords(amount, item_to_buy: Machine, money):
     try:
-        if ((amount * item_to_buy.price) < money):
+        if ((float(amount) * item_to_buy.price) < money):
             return True
         else:
             return False

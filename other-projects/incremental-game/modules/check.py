@@ -8,6 +8,8 @@ def check(company: Statistics):
     generated_money = company.production * company.factor * time_delta.total_seconds()
     company.money = company.money + generated_money
 
+    company.last_check = dt.datetime.now()
+
     print("Since the last check, you have generated " + str(generated_money) + ".\n")
     print("This means that your company balance is now " + str(company.money) + ".\n")
 
