@@ -19,4 +19,4 @@ def check(company: Statistics):
     for upgrade in company.owned_upgrades:
         print(str(upgrade) + "\n")
 
-    return
+    return company

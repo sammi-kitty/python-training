@@ -7,9 +7,9 @@ from modules import buy, check, click, sell
 def main():
 
     company = Statistics(
-        money = 10,
-        production = 0,
-        factor = 1,
+        money = 51.0,
+        production = 0.0,
+        factor = 1.0,
         last_check = dt.datetime.now(),
         owned_machines = [],
         owned_upgrades = [])
@@ -19,7 +19,7 @@ def main():
         cmd = input("What do you wish to do? \n")
 
         if (cmd == "check"):
-            check.check(company)
+            company = check.check(company)
 
         elif (cmd == "buy"):
             company = buy.buy(company)

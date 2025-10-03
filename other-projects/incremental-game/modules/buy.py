@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 from .classes import Statistics, Machine, Upgrade
+from .check import check
 
 AVAILABLE_MACHINES = {
     "basic": Machine("Basic Producer", "\"A basic producer for all your basic producing needs\"", 1, 50),
@@ -13,22 +14,23 @@ AVAILABLE_UPGRADES = {
 }
 
 def buy(company: Statistics):
-    
+    company = check(company)
+
     answer = ""
-    while (contains(["machines", "upgrades"], answer) == False):
+    while ((answer in ["machines", "upgrades"]) == False):
         answer = input("What do you want to buy? \n")
 
-        if contains(["machines", "upgrades"], cmd):
+        if (answer in ["machines", "upgrades"]):
             print("You are now buying: " + answer)
         else:
             print("That is not a valid type of thing to buy. The valid types are: machines, upgrades")
 
-    if (type_to_buy == "machines"):
+    if (answer == "machines"):
         stock = AVAILABLE_MACHINES.copy()
     else:
         stock = AVAILABLE_UPGRADES.copy()
     
-    print("You are now buying: " + str(type_to_buy.capitalize()))
+    print("You are now buying: " + answer.capitalize())
     print("Available products:")
     for element in stock.values():
         print(
@@ -49,24 +51,30 @@ def buy(company: Statistics):
 
     for element in stock.values():
         if (element.name.lower() == answer.lower()):
-            machine_to_buy = element
+            item_to_buy = element
+
+    print("money" + str(company.money))
+    print("item_to_buy" + str(item_to_buy))
 
     amount_to_buy = ""
     while (is_integer(amount_to_buy) == False 
            or 
-           affords(amount_to_buy, machine_to_buy, company.money) == False):
+           affords(amount_to_buy, item_to_buy, company.money) == False):
         amount_to_buy = input("What amount of the selected stock do you wish to purchase?\n")
 
-        if (is_integer(amount_to_buy) and affords(amount_to_buy, machine_to_buy, company.money)):
-            print("Now purchasing: " + str(amount_to_buy) + "x " + str(machine_to_buy))
+        if (is_integer(amount_to_buy) and affords(amount_to_buy, item_to_buy, company.money)):
+            print("Now purchasing: " + str(amount_to_buy) + "x " + str(item_to_buy))
+
+        if (amount_to_buy == "exit"):
+            return company
 
         if (is_integer(amount_to_buy) == False):
             print("Not an integer.")
-        if (affords(amount_to_buy, machine_to_buy, company.money) == False):
-            print("You do not afford that purchase. To exit this purchase, enter \"exit\"")
-        
-        if (amount_to_buy == "exit"):
-            return company
+        if (affords(amount_to_buy, item_to_buy, company.money) == False):
+            print("You do not afford that purchase. To exit this purchase, enter \"exit\".")
+
+    company.production = company.production + item_to_buy.production * amount_to_buy
+    company.money = company.money - item_to_buy.price * amount_to_buy
 
     return company
 
@@ -84,8 +92,11 @@ def contains(set: dict[str, Machine] | dict[str, Upgrade], thing):
             return True
     return False
 
-def affords(amount, price, money):
-    if (amount * price <= money):
-        return True
-    else:
+def affords(amount, item_to_buy: Machine, money):
+    try:
+        if ((amount * item_to_buy.price) < money):
+            return True
+        else:
+            return False
+    except:
         return False

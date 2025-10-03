@@ -10,7 +10,6 @@ PROBABILITIES = ["1","x","2"]
 
 def main():
 
-    j = 0
     tips = []
     while True:
         list = []
