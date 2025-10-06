@@ -6,6 +6,7 @@ def main():
 
     sum = 0
     i = 2
+    list = []
     while i <= max_value:
         sum = sum + i
         print(i, sum)
