@@ -1,6 +1,4 @@
 #!/usr/bin/python3
-import datetime as dt
-import csv
 
 from modules.classes import Tree
 from modules.tree_organiser import tree_organiser

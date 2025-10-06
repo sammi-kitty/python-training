@@ -17,8 +17,6 @@ def tree_organiser(filename):
 
         for row in reader:
             trees.append(tree_converter(row))
-    
-    print(trees)
 
     return trees
 
@@ -44,5 +42,10 @@ def tree_converter(row):
         float(row[0]), 
         float(row[1][1:len(row[1])])
         ]
+    tree.tree_type = row[2]
+    tree.species_latin = row[3]
+    tree.species_swedish = row[4]
+    tree.plantation_type = row[5]
+    tree.date = row[6] #PLACEHOLDER USE PROPER DATETIME INSTEAD
     
     return tree

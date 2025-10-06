@@ -10,9 +10,9 @@ class Tree:
         self.date = date
 
     def __str__(self):
-        return (self.coordinates, 
-                self.tree_type, 
-                self.species_latin, 
-                self.species_swedish, 
-                self.plantation_type, 
-                self.date)
+        return (str(self.coordinates) + " " +
+                str(self.tree_type) + " " +
+                str(self.species_latin) + " " +
+                str(self.species_swedish) + " " +
+                str(self.plantation_type) + " " +
+                str(self.date))
