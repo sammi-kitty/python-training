@@ -8,3 +8,11 @@ class Tree:
         self.species_swedish = species_swedish
         self.plantation_type = plantation_type
         self.date = date
+
+    def __str__(self):
+        return (self.coordinates, 
+                self.tree_type, 
+                self.species_latin, 
+                self.species_swedish, 
+                self.plantation_type, 
+                self.date)
