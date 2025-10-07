@@ -1,18 +1,29 @@
 #!/usr/bin/python3
-from .classes import Tree
 import csv
+import os
 
-FORMATTED_FILE = "/home/samantha/Code/python-training/problems/trees-in-umeå/formatted_csv.csv"
+from .classes import Tree
+from global_variables import PROJECT_DIRECTORY, FORMATTED_FILE
 
-def tree_organiser(filename):
+def tree_organiser():
+
+    file_path = ""
+    while (is_valid_filename(file_path) == False):
+        filename = input("Insert filename containing tree data (WITHOUT relative path): ")
+
+        file_path = os.path.join(PROJECT_DIRECTORY, "data", filename)
+        print(file_path)
+
+        if (is_valid_filename(file_path) == False):
+            print("Not a valid file name.")
 
     # Take the file of trees and make it CSV compliant by swapping out ; for ,
     # The new file is FORMATTED_FILE
-    csv_compliance(filename)
+    csv_compliance(file_path)
 
     trees = []
     with open(FORMATTED_FILE) as file:
-        heading = next(file)
+        header = next(file)
         reader = csv.reader(file)
 
         for row in reader:
@@ -40,12 +51,20 @@ def tree_converter(row):
 
     tree.coordinates = [
         float(row[0]), 
-        float(row[1][1:len(row[1])])
+        float(str(row[1]).strip())
         ]
-    tree.tree_type = row[2]
-    tree.species_latin = row[3]
-    tree.species_swedish = row[4]
-    tree.plantation_type = row[5]
+    tree.tree_type = str(row[2]).lower()
+    tree.species_latin = str(row[3]).lower()
+    tree.species_swedish = str(row[4]).lower()
+    tree.plantation_type = str(row[5]).lower()
     tree.date = row[6] #PLACEHOLDER USE PROPER DATETIME INSTEAD
     
     return tree
+
+def is_valid_filename(input):
+    try:
+        with open(input) as file:
+            pass
+        return True
+    except:
+        return False

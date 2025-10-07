@@ -1,25 +1,30 @@
 #!/usr/bin/python3
+import os
 
 from modules.classes import Tree
 from modules.tree_organiser import tree_organiser
+from modules.tree_counter import tree_counter
+
+VALID_COMMANDS = ["load trees", "help"]
 
 def main():
     
-    answer = ""
-    while (is_valid_file(answer) == False):
-        answer = input("Insert filename containing tree data: ")
+    while True:
+        cmd = input("Insert cmd: ")
 
-        if (is_valid_file(answer) == False):
-            print("Not a valid file name.")
+        if (cmd == "load trees"):
+            print("organising trees")
+            trees = tree_organiser()
 
-    trees = tree_organiser(answer)
+        elif (cmd == "count"):
+            print("counting trees")
+            tree_counter(trees)
 
-def is_valid_file(input):
-    try:
-        with open(input) as file:
-            pass
-        return True
-    except:
-        return False
+
+        elif (cmd == "help"):
+            print("Available commands: \n" + str(VALID_COMMANDS))
+
+        else:
+            print("That is not a valid command")
 
 main()

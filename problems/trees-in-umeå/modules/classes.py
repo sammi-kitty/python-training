@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import math
 
 class Tree:
     def __init__(self, coordinates, tree_type, species_latin, species_swedish, plantation_type, date):
@@ -16,3 +17,18 @@ class Tree:
                 str(self.species_swedish) + " " +
                 str(self.plantation_type) + " " +
                 str(self.date))
+
+    def is_species(self, species):
+        if (
+            (str(self.species_swedish).find(species["swedish"]) != -1)
+            and
+            (str(self.species_latin).find(species["latin"]) != -1)
+            ):
+            return True
+        else:
+            return False
+        
+    def dist(self, coord):
+        delta_x = self.coordinates[0] - coord[0]
+        delta_y = self.coordinates[1] - coord[1]
+        return math.sqrt(math.pow(delta_x) + math.pow(delta_y))
