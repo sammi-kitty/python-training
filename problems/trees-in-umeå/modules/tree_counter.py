@@ -6,7 +6,14 @@ def tree_counter(trees):
     swedish_species = input("Input SWEDISH species name: ").lower()
     latin_species = input("Input LATIN species name: ").lower()
 
-    
+    overcount = ""
+    while (overcount in ["True", "False"]) == False:
+        overcount = input("Overcount? (True/False) ")
+
+        if (overcount in ["True", "False"]) == False:
+            print("Not a valid answer.")
+        
+    overcount = bool(overcount)
     species = {
         "swedish": swedish_species,
         "latin": latin_species
@@ -16,6 +23,14 @@ def tree_counter(trees):
     for tree in trees:
         if tree.is_species(species) == True:
             amount = amount + 1
+
+    if overcount:
+        for tree in trees:
+            if tree.is_species({
+                "swedish": "",
+                "latin": ""
+            }):
+                amount = amount + 1
 
     print(amount)
 

@@ -4,8 +4,9 @@ import os
 from modules.classes import Tree
 from modules.tree_organiser import tree_organiser
 from modules.tree_counter import tree_counter
+from modules.dist import dist
 
-VALID_COMMANDS = ["load trees", "help"]
+VALID_COMMANDS = ["load trees", "count", "help"]
 
 def main():
     
@@ -20,6 +21,9 @@ def main():
             print("counting trees")
             tree_counter(trees)
 
+        elif (cmd == "distance"):
+            print("measuring distance")
+            dist(trees)
 
         elif (cmd == "help"):
             print("Available commands: \n" + str(VALID_COMMANDS))
