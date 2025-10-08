@@ -7,6 +7,7 @@ from global_variables import PROJECT_DIRECTORY, FORMATTED_FILE
 
 def tree_organiser():
 
+    # Path to file containing trees
     file_path = ""
     while (is_valid_filename(file_path) == False):
         filename = input("Insert filename containing tree data (WITHOUT relative path): ")
@@ -17,10 +18,11 @@ def tree_organiser():
         if (is_valid_filename(file_path) == False):
             print("Not a valid file name.")
 
-    # Take the file of trees and make it CSV compliant by swapping out ; for ,
+    # Format the file (swap out ; for ,)
     # The new file is FORMATTED_FILE
     csv_compliance(file_path)
 
+    # Create trees[] list with all the trees
     trees = []
     with open(FORMATTED_FILE) as file:
         header = next(file)
@@ -47,21 +49,27 @@ def csv_compliance(filename):
     return
 
 def tree_converter(row):
+    # Convert a tree on the form 
+    # [long, lat, tree_type, species_latin, species_swedish, plantation_type, date]
+    # Into Tree object
+
     tree = Tree([],"","","","","")
 
-    tree.coordinates = [
-        float(row[0]), 
-        float(str(row[1]).strip())
-        ]
+    tree.coordinates = {
+        "long": float(row[0]), 
+        "lat": float(str(row[1]).strip())
+        }
     tree.tree_type = str(row[2]).lower()
     tree.species_latin = str(row[3]).lower()
     tree.species_swedish = str(row[4]).lower()
     tree.plantation_type = str(row[5]).lower()
-    tree.date = row[6] #PLACEHOLDER USE PROPER DATETIME INSTEAD
+    tree.date = row[6] # PLACEHOLDER: USE PROPER DATETIME INSTEAD
     
     return tree
 
 def is_valid_filename(input):
+    # Check if filename is valid by attempting to open file
+
     try:
         with open(input) as file:
             pass

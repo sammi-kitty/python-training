@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-import math
+from global_variables import EARTH_RADIUS
+from .dist_math import delta_theta
 
 class Tree:
     def __init__(self, coordinates, tree_type, species_latin, species_swedish, plantation_type, date):
@@ -19,6 +20,8 @@ class Tree:
                 str(self.date))
 
     def is_species(self, species):
+        # Check if tree belongs to certain species
+
         if (
             (str(self.species_swedish).find(species["swedish"]) != -1)
             and
@@ -28,7 +31,13 @@ class Tree:
         else:
             return False
         
-    def dist(self, coord):
-        delta_x = self.coordinates[0] - coord[0]
-        delta_y = self.coordinates[1] - coord[1]
-        return math.sqrt(math.pow(delta_x) + math.pow(delta_y))
+    def distance_to_point(self, point):
+        # Calculate the distance from self.coordinates to point
+
+        theta = delta_theta(
+            [self.coordinates["long"], point["long"]],
+            [self.coordinates["lat"], point["lat"]])
+
+        distance = EARTH_RADIUS * theta
+
+        return distance

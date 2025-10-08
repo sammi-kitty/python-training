@@ -6,9 +6,10 @@ from modules.tree_organiser import tree_organiser
 from modules.tree_counter import tree_counter
 from modules.dist import dist
 
-VALID_COMMANDS = ["load trees", "count", "help"]
+VALID_COMMANDS = ["load trees", "count", "help", "distance"]
 
 def main():
+    # Main function
     
     while True:
         cmd = input("Insert cmd: ")
