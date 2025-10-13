@@ -6,13 +6,15 @@ from .classes import Tree
 from global_variables import PROJECT_DIRECTORY, FORMATTED_FILE
 
 def tree_organiser():
+    
+    print("Load some trees from the PROJECT_DIRECTORY/data directory:")
 
     # Path to file containing trees
     file_path = ""
     while (is_valid_filename(file_path) == False):
         filename = input("Insert filename containing tree data (WITHOUT relative path): ")
 
-        file_path = os.path.join(PROJECT_DIRECTORY, "data", filename)
+        file_path = os.path.join(PROJECT_DIRECTORY(), "data", filename)
         print(file_path)
 
         if (is_valid_filename(file_path) == False):
@@ -24,7 +26,7 @@ def tree_organiser():
 
     # Create trees[] list with all the trees
     trees = []
-    with open(FORMATTED_FILE) as file:
+    with open(FORMATTED_FILE()) as file:
         header = next(file)
         reader = csv.reader(file)
 
@@ -43,7 +45,7 @@ def csv_compliance(filename):
         for row in file:
             file_rows.append(row.translate(table))
 
-    with open(FORMATTED_FILE, "w") as file:
+    with open(FORMATTED_FILE(), "w") as file:
         file.writelines(file_rows)
 
     return

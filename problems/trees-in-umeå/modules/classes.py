@@ -38,6 +38,6 @@ class Tree:
             [self.coordinates["long"], point["long"]],
             [self.coordinates["lat"], point["lat"]])
 
-        distance = EARTH_RADIUS * theta
+        distance = EARTH_RADIUS() * theta
 
         return distance

@@ -11,6 +11,9 @@ VALID_COMMANDS = ["load trees", "count", "help", "distance"]
 def main():
     # Main function
     
+    print("To get started, load some trees:")
+    trees = tree_organiser()
+
     while True:
         cmd = input("Insert cmd: ")
 
