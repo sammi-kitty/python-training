@@ -49,7 +49,33 @@ def dist(trees: list[Tree]):
               " at " + 
               str(closest_tree["nearest_tree"].coordinates) +
               " with distance " +
-              str(closest_tree["closest_distance"]))
+              str(closest_tree["distance"]))
+        
+    elif cmd == "closest-trees":
+        print("Finding the two closest trees in the entire set:")
+        
+        closest_trees = {
+            "origin": Tree("", "", "", "", "", ""),
+            "closest_tree": Tree("", "", "", "", "", ""),
+            "distance": float_info.max
+        }
+        for origin in trees:
+            tree = nearest_tree(origin, trees)
+            if tree["distance"] < closest_trees["distance"]:
+                closest_trees["origin"] = origin
+                closest_trees["closest_tree"] = tree["nearest_tree"]
+                closest_trees["distance"] = tree["distance"]
+
+        print("Closest trees are:\n" +
+              str(closest_trees["origin"].species_swedish).capitalize() +
+              " with coordinates " +
+              str(closest_trees["origin"].coordinates) +
+              "\nand:\n" +
+              str(closest_trees["closest_tree"].species_swedish).capitalize() +
+              " with coordinates " + 
+              str(closest_trees["closest_tree"].coordinates) +
+              "\nwith distance: " +
+              str(closest_trees["distance"]))
 
 def select_tree(trees):
     # Select a tree from trees
@@ -84,6 +110,7 @@ def get_point():
             print("Not a float.")
 
     # Enter latitude
+
     latitude = ""
     while (is_float(latitude) == False):
         latitude = input("Enter latitude for the point you want to calculate")
@@ -105,6 +132,9 @@ def nearest_tree(origin: Tree, trees: list[Tree]):
 
     for tree in trees:
         distance = origin.distance_to_point(tree.coordinates)
+
+        # print(tree, origin)
+        
         if (tree == origin):
             pass
         elif (distance < closest_distance):
@@ -113,7 +143,7 @@ def nearest_tree(origin: Tree, trees: list[Tree]):
 
     return {
         "nearest_tree": nearest_tree,
-        "closest_distance": closest_distance
+        "distance": closest_distance
     }
 
 def is_float(value):
