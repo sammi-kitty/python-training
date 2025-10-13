@@ -1,13 +1,16 @@
 #!/usr/bin/python3
 
-def main(): 
+def main():
 
-    max_value = input("Vilket tal vill du räkna till?")
-    max_value = int(max_value)
+    max_value = int(input("Skriv in det tal du vill räkna till: "))
 
+    sum = 0
     i = 2
+    list = []
     while i <= max_value:
-        print(i)
+        sum = sum + i
+        print(i, sum)
+
         i = i + 2
 
 main()
