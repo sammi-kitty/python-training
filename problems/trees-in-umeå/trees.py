@@ -1,7 +1,4 @@
 #!/usr/bin/python3
-import os
-
-from modules.classes import Tree
 from modules.tree_organiser import tree_organiser
 from modules.tree_counter import tree_counter
 from modules.dist import dist
@@ -10,6 +7,9 @@ VALID_COMMANDS = ["load trees", "count", "help", "distance"]
 
 def main():
     # Main function
+
+    print("Initialise the program by loading some trees:")
+    trees = tree_organiser()
     
     print("To get started, load some trees:")
     trees = tree_organiser()

@@ -9,6 +9,7 @@ def tree_organiser():
     
     print("Load some trees from the PROJECT_DIRECTORY/data directory:")
 
+    print("Load some trees from the PROJECT_DIR/data folder.")
     # Path to file containing trees
     file_path = ""
     while (is_valid_filename(file_path) == False):
